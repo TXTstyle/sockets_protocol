@@ -19,9 +19,9 @@ pub struct Content {
     pub file: Option<String>,
 }
 
-/// Same as Content, but peer is sender to server
-/// and after sender when leaving server
-/// for reciever client.
+/// Same as Content, but peer is sender to server,
+/// and after leaving the server; peer is the
+/// reciever of the message/client.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DirectContent {
     pub text: String,
@@ -29,8 +29,8 @@ pub struct DirectContent {
     pub peer: String,
 }
 
-/// Sends on connection to server.
-/// Failes, returns Response (InvaildUsername), on non-unique username.
+/// Sent on connection to server.
+/// Failes, returning Response(InvaildUsername), on non-unique username.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Login {
     name: String,
