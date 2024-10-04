@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 /// If Global send to everyone on server, including self.
 /// If Direct; send to server and server sends to peer.
 #[derive(Serialize, Deserialize, Debug)]
-enum Message {
+pub enum Message {
     Direct(DirectContent),
     Global(Content),
 }
@@ -14,32 +14,32 @@ enum Message {
 /// of the file and the message text.
 /// Sender is infered from server/client-ip.
 #[derive(Serialize, Deserialize, Debug)]
-struct Content {
-    text: String,
-    file: Option<String>,
+pub struct Content {
+    pub text: String,
+    pub file: Option<String>,
 }
 
 /// Same as Content, but peer is sender to server
 /// and after sender when leaving server
 /// for reciever client.
 #[derive(Serialize, Deserialize, Debug)]
-struct DirectContent {
-    text: String,
-    file: Option<String>,
-    peer: String,
+pub struct DirectContent {
+    pub text: String,
+    pub file: Option<String>,
+    pub peer: String,
 }
 
 /// Sends on connection to server.
 /// Failes, returns Response (InvaildUsername), on non-unique username.
 #[derive(Serialize, Deserialize, Debug)]
-struct Login {
+pub struct Login {
     name: String,
     color: Color,
 }
 
 /// Color of username in chat.
 #[derive(Serialize, Deserialize, Debug)]
-enum Color {
+pub enum Color {
     Red,
     Blue,
     Green,
@@ -53,7 +53,7 @@ enum Color {
 /// On Login; returned InvaildUsername if non-unique username.
 /// On Direct message; InvaildUsername if peer doesn't exist.
 #[derive(Serialize, Deserialize, Debug)]
-enum Response {
+pub enum Response {
     Ok,
     InvaildUsername,
 }
@@ -61,7 +61,7 @@ enum Response {
 /// On connection, server sends the Version number
 /// the server is running on.
 #[derive(Serialize, Deserialize, Debug)]
-struct Version(u16);
+pub struct Version(u16);
 
 /*
     Impls
