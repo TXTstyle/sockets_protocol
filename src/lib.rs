@@ -33,8 +33,8 @@ pub struct DirectContent {
 /// Failes, returning Response(InvaildUsername), on non-unique username.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Login {
-    name: String,
-    color: Color,
+    pub name: String,
+    pub color: Color,
 }
 
 /// Color of username in chat.
