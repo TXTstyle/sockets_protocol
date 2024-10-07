@@ -61,7 +61,7 @@ pub enum Response {
 /// On connection, server sends the Version number
 /// the server is running on.
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Version(u16);
+pub struct Version(pub u16);
 
 /*
     Impls
