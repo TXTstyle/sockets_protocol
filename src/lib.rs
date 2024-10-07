@@ -1,9 +1,9 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-/// Client sends a Message enum to server. 
+/// Client sends a Message enum to server.
 /// If Global send to everyone on server, including self.
 /// If Direct; send to server and server sends to peer.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub enum Message {
     Direct(DirectContent),
     Global(Content),
@@ -13,7 +13,7 @@ pub enum Message {
 /// File field includes a Base64 string
 /// of the file and the message text.
 /// Sender is infered from server/client-ip.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub struct Content {
     pub text: String,
     pub file: Option<String>,
@@ -22,7 +22,7 @@ pub struct Content {
 /// Same as Content, but peer is sender to server,
 /// and after leaving the server; peer is the
 /// reciever of the message/client.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub struct DirectContent {
     pub text: String,
     pub file: Option<String>,
@@ -31,14 +31,14 @@ pub struct DirectContent {
 
 /// Sent on connection to server.
 /// Failes, returning Response(InvaildUsername), on non-unique username.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub struct Login {
     pub name: String,
     pub color: Color,
 }
 
 /// Color of username in chat.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub enum Color {
     Red,
     Blue,
@@ -52,7 +52,7 @@ pub enum Color {
 
 /// On Login; returned InvaildUsername if non-unique username.
 /// On Direct message; InvaildUsername if peer doesn't exist.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub enum Response {
     Ok,
     InvaildUsername,
@@ -60,7 +60,7 @@ pub enum Response {
 
 /// On connection, server sends the Version number
 /// the server is running on.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd)]
 pub struct Version(pub u16);
 
 /*
