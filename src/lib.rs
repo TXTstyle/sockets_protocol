@@ -3,30 +3,33 @@ use serde::{Deserialize, Serialize};
 /// Client sends a Message enum to server.
 /// If Global send to everyone on server, including self.
 /// If Direct; send to server and server sends to peer.
+/// If Response; When sending back messages to client.
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd, Clone)]
 pub enum Message {
     Direct(DirectContent),
     Global(Content),
+    Response(Response),
 }
 
 /// Content of a Global message.
 /// File field includes a Base64 string
 /// of the file and the message text.
-/// Sender is infered from server/client-ip.
+/// Author is client sender.
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd, Clone)]
 pub struct Content {
     pub text: String,
     pub file: Option<String>,
+    pub author: String,
 }
 
-/// Same as Content, but peer is sender to server,
-/// and after leaving the server; peer is the
-/// reciever of the message/client.
+/// Same as Content, peer is reciver of
+/// the message and author is the sender.
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq, Eq, PartialOrd, Clone)]
 pub struct DirectContent {
     pub text: String,
     pub file: Option<String>,
     pub peer: String,
+    pub author: String,
 }
 
 /// Sent on connection to server.
